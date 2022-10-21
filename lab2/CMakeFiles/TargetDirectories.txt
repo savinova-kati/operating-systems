@@ -1,0 +1,4 @@
+/Users/ekaterina/Desktop/lab2/CMakeFiles/child.dir
+/Users/ekaterina/Desktop/lab2/CMakeFiles/main.dir
+/Users/ekaterina/Desktop/lab2/CMakeFiles/edit_cache.dir
+/Users/ekaterina/Desktop/lab2/CMakeFiles/rebuild_cache.dir
