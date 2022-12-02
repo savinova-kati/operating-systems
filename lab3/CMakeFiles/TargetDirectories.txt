@@ -1,0 +1,4 @@
+/Users/ekaterina/Desktop/OS/operating-systems/lab3/CMakeFiles/main.dir
+/Users/ekaterina/Desktop/OS/operating-systems/lab3/CMakeFiles/randomizer.dir
+/Users/ekaterina/Desktop/OS/operating-systems/lab3/CMakeFiles/edit_cache.dir
+/Users/ekaterina/Desktop/OS/operating-systems/lab3/CMakeFiles/rebuild_cache.dir
