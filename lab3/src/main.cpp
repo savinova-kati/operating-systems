@@ -168,7 +168,9 @@ void* task(void *t)
 		}
 	}
 	mtx.lock();
+
 	summ += summ_1;
+
 	mtx.unlock();
 	return 0;
 }

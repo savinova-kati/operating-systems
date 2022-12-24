@@ -53,6 +53,7 @@ int child(string filename, char *mapped, string sem_file) {
 		} else {
 			mapped[0] = 1;
 		}
+		sem_post(semaphore);
 		
 		count++;
 
@@ -67,7 +68,7 @@ int main ()
 	int strings_size;
 	string sem_file = "a.semaphore";
 
-	cout << "Введите название файла ";
+	cout << "Enter name of file ";
 	cin >> filename;
 	cout << endl;
 
@@ -78,7 +79,7 @@ int main ()
 
 	const int mapsize = amount*256;
 
-	int flaccess = S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH;
+	int flaccess = S_IWUSR | S_IRUSR | S_IRGRP | S_IROTH; //права семафора
 
 	sem_t *semaphore = sem_open(sem_file.c_str(), O_CREAT, flaccess, 0);
 
@@ -128,12 +129,13 @@ int main ()
 				}
 				mapped[start + j] = string_r[j - 1];
 			}
-			sem_post(semaphore);
-			start += string_r.size() + 1;
+			sem_post(semaphore); //разблакировка семафора
+			sem_wait(semaphore);
 			if (mapped[0] == 1) {
 				cout << "The string does not fit the rule" << endl;
 				mapped[0] = 0;
 			}
+			start += string_r.size() + 1;
 		}
 	}
 	munmap(mapped, mapsize);
