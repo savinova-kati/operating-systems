@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<cmath>
 #include<dlfcn.h>
-#include"lib.h"
+
 #include"config.h"
 #include<string>
 

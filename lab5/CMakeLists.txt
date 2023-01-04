@@ -38,4 +38,3 @@ target_include_directories(main2 PRIVATE ./include)
 target_link_libraries(main2 PRIVATE lib2 dl)
 
 add_executable(main ./src/main2.cpp)
-target_include_directories(main PRIVATE ./include)

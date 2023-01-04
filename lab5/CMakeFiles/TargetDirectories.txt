@@ -1,7 +1,0 @@
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/lib1.dir
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/lib2.dir
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/main1.dir
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/main2.dir
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/main.dir
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/edit_cache.dir
-/Users/ekaterina/Desktop/OS/operating-systems/lab5/CMakeFiles/rebuild_cache.dir
