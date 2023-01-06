@@ -10,7 +10,7 @@ using namespace std;
 void send_message(string message_string, zmq::socket_t& socket) // отправка сообщений на сервер
 {
     zmq::message_t message_back(message_string.size());
-    memcpy(message_back.data(), message_string.c_str(), message_string.size()); //memcpy — функция стандартной библиотеки языка программирования Си, копирующая содержимое одной области памяти в другую.
+    memcpy(message_back.data(), message_string.c_str(), message_string.size()); // копирующая содержимое одной области памяти в другую.
     if(!socket.send(message_back))
     {
         cout << "Не удается отправить сообщение. " << getpid() << "\n";
@@ -38,7 +38,7 @@ void random(vector<vector<char> >& p)
         {
             v = 1&rand();
             do for (x[v] = 1 + rand() % 10, x[1 - v] = 1 + rand() % 7, y = j = 0; j - l; y |= p[x[0]][x[1]] != '.', x[1 - v]++, j++); while(y);
-            x[1 - v] -= l + 1, p[x[0]][x[1]] = '/', x[v]--, p[x[0]][x[1]] = '/', x [v] += 2, p[x [0]][x[1]] = '/', x[v]--, x[1 - v]++;
+            x[1 - v] -= l + 1, p[x[0]][x[1]] = '/', x[v]--, p[x[0]][x[1]] = '/', x [v] += 2, p[x[0]][x[1]] = '/', x[v]--, x[1 - v]++;
             for (j = -1; ++j - l; p[x[0]][x[1]] = 'X', x[v]--, p[x[0]][x[1]] = '/', x[v] += 2, p[x[0]][x[1]] = '/', x[v]--, x[1 - v]++);
             p[x[0]][x[1]] = '/', x[v]--, p[x[0]][x[1]] = '/', x[v]+=2, p[x[0]][x[1]] = '/';
         }
@@ -48,7 +48,7 @@ void random(vector<vector<char> >& p)
         }
 }
 
-void flood(vector<vector<char> >& p) // ЧЕ ЗА ХУЙНЯ
+void flood(vector<vector<char> >& p)
 {
 	for (int i = 0; i < 12; i++)
 	{
@@ -71,7 +71,7 @@ void print(vector<vector<char> >& p)
 
 int main()
 {
-	zmq::context_t context (1); // ЧЕ ХУЙ ХУЙНЯ
+	zmq::context_t context (1); // Класс context_t инкапсулирует функции, связанные с инициализацией и завершением контекста
 	zmq::socket_t socket (context, ZMQ_REQ); // обмен данными между клиентом и сервером
 	//Клиент использует ZMQ_REQ для отправки сообщений и получения ответов от сервера.
 	string port;
@@ -81,10 +81,10 @@ int main()
 	unsigned milliseconds;
         cout << "Введите время, в течение которого сокет может ожидать ответа от сервера.\n"; //Со́кет — название программного интерфейса для обеспечения обмена данными между процессами.
         cin >> milliseconds;
-        socket.setsockopt(ZMQ_SNDTIMEO, (int)milliseconds); // ФЛАГИ????
-	socket.setsockopt(ZMQ_RCVTIMEO, (int)milliseconds);	
+        socket.setsockopt(ZMQ_SNDTIMEO, (int)milliseconds); //Устанавливает тайм-аут для операции отправки на сокете.
+	socket.setsockopt(ZMQ_RCVTIMEO, (int)milliseconds); //Устанавливает тайм-аут для операции получения на сокете.
         socket.connect ("tcp://localhost:" + port);
-	send_message("ID " + to_string(getpid()), socket); // 
+	send_message("ID " + to_string(getpid()), socket); // getpid() возвращяет идентификатор процесса
 	zmq::message_t reply;
 
 	recieve_message(socket); // Ждем чтобы сервер начлал игру
@@ -300,7 +300,7 @@ int main()
 			cout << "Введите ход\n";
 			continue;
 		}
-		if (command == "Amount") // ????????
+		if (command == "Amount") 
 		{
 			send_message("Amount " + to_string(getpid()), socket);
 			recieve_message(socket);
@@ -346,7 +346,7 @@ int main()
 				}
 				send_message("Try" + to_string(int(h) - int('A')) + to_string(v - 1) + " " + to_string(getpid()), socket);
 				string reply = recieve_message(socket);
-				cout << "Ваш ход: " << reply << "\n";
+				cout << "Ваш ход пользователь: " << reply << "\n";
 				if ((reply == "Killed") || (reply == "Wounded"))
 				{
 					server_field[v][int(h) - int('A') + 1] = 'K';
@@ -372,7 +372,7 @@ int main()
 					playing = false;
 					continue;
 				}
-				if (reply == "Missed")
+				if (reply == "Missed") //при промахе пользователя серверу отправляем Do с возможностью сделать ход
 				{
 					server_field[v][int(h) - int('A') + 1] = 'w';
 					send_message("Do " + to_string(getpid()), socket);	
@@ -395,19 +395,10 @@ int main()
 						int hor = int(reply[4]) - int('0') + 1, ver = int(reply[3]) - int('0') + 1;
 						if (my_field[ver][hor] == 'X')
 						{
-							reply = "Killed";
+							reply = "Killed"; // проверка убил или попал счервер
 							int v = ver, h = hor;
 							my_field[v][h] = 'K';
-							for (int i = -1; i < 2; i++)
-							{
-								for (int j = -1; j < 2; ++j)
-								{
-									if (my_field[v + i][h + j] == '.')
-									{
-										my_field[v + i][h + j] = 'w';
-									}
-								}
-							}
+							
 							while ((v > 1) && (my_field[v][h] == 'K'))
 							{
 								--v;
@@ -458,8 +449,9 @@ int main()
 							reply = "Missed";
 							my_field[ver][hor] = 'w';
 						}
-						cout << "Ваш ход " << reply << "\n";
-						send_message(reply + " " + to_string(getpid()), socket);
+						cout << "Ваш ход сервер " << reply << "\n";
+						send_message(reply + " " + to_string(getpid()), socket); // здесь можно получить Kill если сервер попал
+						//cout << '0' << endl;
 					}
 					if (reply == "Lost")
 					{
